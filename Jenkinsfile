@@ -1,14 +1,17 @@
 pipeline {
-  agent {
-    node {
-      label 'maven'
+    agent {
+        node {
+            label 'maven'
+        }
     }
-  }
-  stages {
-    stage('Clone-code') {
-      steps {
-        git branch: 'main', url: 'https://github.com/mustafaemrah/tweet-trend.git'
-      }
+    environment {
+        PATH = "/opt/apache-maven-3.9.9/bin:$PATH"
     }
-  }
+    stages {
+        stage("build"){
+            steps {
+                sh 'mvn clen deploy'
+            }
+        }
+    }
 }
