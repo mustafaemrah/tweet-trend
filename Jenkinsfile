@@ -6,6 +6,7 @@ pipeline {
     }
     environment {
         PATH = "/opt/apache-maven-3.9.9/bin:$PATH"
+        MAVEN_OPTS = "-Xmx3072m"
     }
     stages {
         stage("build"){
