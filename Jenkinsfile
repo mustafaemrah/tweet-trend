@@ -9,9 +9,19 @@ pipeline {
         MAVEN_OPTS = "-Xmx4096m"
     }
     stages {
-        stage("build"){
+        stage("build") {
             steps {
                 sh 'mvn clean deploy -DskipTests'
+            }
+        }
+        stage('SonarQube analysis') {
+            environment {
+                scannerHome = tool 'emrah-sonar-scanner'
+            }
+            steps {
+                withSonarQubeEnv('emrah-sonarqube-server') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
             }
         }
     }
